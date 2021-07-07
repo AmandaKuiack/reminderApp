@@ -41,18 +41,14 @@ let remindersController = {
   },
 
   update: (req, res) => {
-        let reminderIdToUpdate = parseInt(req.params.id);
-        let reminderIndex = reminderIdToUpdate - 1;
-    // let idToReplace = database.cindy.find((reminder) => {
-    //   if (reminder.id == reminderIdToUpdate) {
-    //     return reminder;
-    //   };
-    // });
+    let reminderIdToUpdate = parseInt(req.params.id);
+    let reminderIndex = reminderIdToUpdate - 1;
+
     let newReminder = {
       id: reminderIdToUpdate,
       title: req.body.title,
       description: req.body.description,
-      completed: req.body.completed.includes("checked")
+      completed: req.body.completed
     };
     database.cindy.reminders[reminderIndex] = newReminder;
     res.redirect("/reminders");
@@ -60,8 +56,12 @@ let remindersController = {
 
   delete: (req, res) => {
     let reminderIdDelete = parseInt(req.params.id) - 1;
-    database.cindy.reminders.splice(reminderIdDelete,reminderIdDelete);
-    console.log(reminderIdDelete);
+    let length = database.cindy.reminders.length
+    if (length >= 2){
+      database.cindy.reminders.splice(reminderIdDelete, reminderIdDelete+1);
+      } else {
+        database.cindy.reminders.splice(0, 1);
+      }
     res.redirect("/reminders");
   } 
 };
