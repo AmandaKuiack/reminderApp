@@ -59,7 +59,10 @@ let remindersController = {
   },
 
   delete: (req, res) => {
-//delete
+    let reminderIdDelete = parseInt(req.params.id) - 1;
+    database.cindy.reminders.splice(reminderIdDelete,reminderIdDelete);
+    console.log(reminderIdDelete);
+    res.redirect("/reminders");
   } 
 };
 
