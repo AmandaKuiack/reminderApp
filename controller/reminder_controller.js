@@ -55,13 +55,16 @@ let remindersController = {
   },
 
   delete: (req, res) => {
-    let reminderIdDelete = parseInt(req.params.id) - 1;
-    let length = database.cindy.reminders.length
-    if (length >= 2){
-      database.cindy.reminders.splice(reminderIdDelete, reminderIdDelete+1);
-      } else {
-        database.cindy.reminders.splice(0, 1);
+    let reminderIdToDelete = parseInt(req.params.id);
+    let foundReminder = database.cindy.reminders.find(function (reminder) {
+      for (i=0; i<= database.cindy.reminders.length; i++) {
+        if (reminder.id == reminderIdToDelete);
+        return i;
       }
+    });
+    console.log(foundReminder);
+
+    database.cindy.reminders.splice(foundReminder, 1);
     res.redirect("/reminders");
   } 
 };
