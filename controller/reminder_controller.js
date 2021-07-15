@@ -62,8 +62,6 @@ let remindersController = {
         return i;
       }
     });
-    console.log(foundReminder);
-
     database.cindy.reminders.splice(foundReminder, 1);
     res.redirect("/reminders");
   } 
