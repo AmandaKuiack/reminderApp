@@ -13,8 +13,17 @@ const userModel = {
         if (user) {
             return user;
         }
-        throw new Error(`Unable to find user with id: &{id}`);
+        throw new Error(`Unable to find user with id: ${id}`);
     },
+    findByGithubId: (id) => {
+        const user = database.find((user) => user.id === id || user.id == id);
+        if (user) {
+            return user;
+        }
+        return false;
+    },
+
+
 };
 
 module.exports = { userModel };
