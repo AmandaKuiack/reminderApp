@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const passport = require("passport");
@@ -8,12 +9,13 @@ const reminderController = require("./controller/reminder_controller");
 const authRoute = require("./routes/authRoute");
 const { ensureAuthenticated } = require("./middleware/checkAuth");
 
+
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(ejsLayouts);
 app.use(session({
-  secret: 'Dragon Quest 11 is a great game',
+  secret: process.env.REMINDERS_SECRET,
   resave: true,
   saveUninitialized: false,
 }));
