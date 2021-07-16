@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const userController = require("../controller/user_controller");
 
 const localLogin = new LocalStrategy(
-    { usernameField: 'email', 
+    { usernameField: 'email',
     passwordField: 'password' },
     (email, password, done) => {
         let user = userController.getUserByInfo(email, password);
