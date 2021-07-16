@@ -16,7 +16,7 @@ let Database = [
     email: 'serena604@gmail.com',
     password: 'serena1988',
     role: 'user',
-    reminders: []}
+    reminders: []},
     ]
 
 // let Database = {

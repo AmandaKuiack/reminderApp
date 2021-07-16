@@ -1,8 +1,9 @@
+const { ensureAuthenticated } = require("../middleware/checkAuth");
 let database = require("../database");
 
 let remindersController = {
   list: (req, res) => {
-    res.render("reminder/index", { reminders: database.cindy.reminders });
+    res.render("reminder/index", { name: req.user.name, reminders: database.cindy.reminders });
   },
 
   new: (req, res) => {
