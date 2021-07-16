@@ -5,7 +5,7 @@ const { forwardAuthenticated } = require("../middleware/checkAuth");
 const router = express.Router();
 
 //Login
-router.get("/login", (req, res) => res.render("login"));
+router.get("/login", (req, res) => res.render("auth/login"));
 router.post(
     "/login",
     passport.authenticate("local", {
@@ -15,7 +15,7 @@ router.post(
 );
 
 //Register
-router.get("/register", (req, res) => res.render("register"));
+router.get("/register", (req, res) => res.render("auth/register"));
 router.post("/register", 
     (req, res) => {
         let newUser = {
