@@ -5,7 +5,7 @@ let database = require("../database");
 const router = express.Router();
 
 //Login
-router.get("/login", (req, res) => res.render("auth/login"));
+router.get("/login", forwardAuthenticated, (req, res) => res.render("auth/login"));
 router.post(
     "/login",
     passport.authenticate("local", {
@@ -15,7 +15,7 @@ router.post(
 );
 
 //Register
-router.get("/register", (req, res) => res.render("auth/register"));
+router.get("/register", forwardAuthenticated, (req, res) => res.render("auth/register"));
 router.post("/register", (req, res) => {
     try {
         database.push({
