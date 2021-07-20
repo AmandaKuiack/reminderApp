@@ -11,6 +11,7 @@ let remindersController = {
         return user;
       }
     });
+    //assign random cat profile picture to user if they do not have a profile picture
     if (currentUser.image === "") {
       const url = `https://api.unsplash.com/photos/random/?query=cats&client_id=${process.env.UNSPLASH_ID}`;
       const response = await fetch(url);
