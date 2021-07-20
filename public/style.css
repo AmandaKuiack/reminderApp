@@ -134,3 +134,9 @@ footer.footer {
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
+.profilePic {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px
+}

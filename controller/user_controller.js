@@ -38,6 +38,7 @@ let createGithubUser = (profile) => {
         username: profile.username,
         password: null,
         role: 'user',
+        image: "",
         reminders: [],
     };
     database.push(newUser);

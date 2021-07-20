@@ -1,15 +1,24 @@
-// const { ensureAuthenticated } = require("../middleware/checkAuth");
+
+require('dotenv').config();
 let database = require("../database");
+const fetch = require("node-fetch");
 
 let remindersController = {
-  list: (req, res) => {
+  list: async (req, res) => {
     let loggedUser = req.user;
     let currentUser = database.find(function (user) {
       if (user.id === loggedUser.id || user.id == loggedUser.id) {
         return user;
       }
     });
-    res.render("reminder/index", { name: currentUser.username, reminders: currentUser.reminders });
+    if (currentUser.image === "") {
+      const url = `https://api.unsplash.com/photos/random/?query=cats&client_id=${process.env.UNSPLASH_ID}`;
+      const response = await fetch(url);
+      const responseAsJson = await response.json();
+      let picture = responseAsJson.urls.small;
+      currentUser.image = picture;
+    };
+    res.render("reminder/index", { name: currentUser.username, reminders: currentUser.reminders, picture: currentUser.image});
   },
 
   new: (req, res) => {
@@ -28,9 +37,9 @@ let remindersController = {
       return reminder.id == reminderToFind;
     });
     if (searchResult != undefined) {
-      res.render("reminder/single-reminder", { reminderItem: searchResult });
+      res.render("reminder/single-reminder", { reminderItem: searchResult, name: currentUser.username, picture: currentUser.image });
     } else {
-      res.render("reminder/index", { reminders: currentUser.reminders });
+      res.render("reminder/index", { reminders: currentUser.reminders, name: currentUser.username, picture: currentUser.image });
     }
   },
 
@@ -62,7 +71,7 @@ let remindersController = {
     let searchResult = currentUser.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
-    res.render("reminder/edit", { reminderItem: searchResult });
+    res.render("reminder/edit", { reminderItem: searchResult, name: currentUser.username, picture: currentUser.image });
   },
 
   update: (req, res) => {
